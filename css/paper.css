@@ -1,0 +1,69 @@
+.notebook-sheet {
+  position: relative;
+  width: var(--page-width);
+  min-width: var(--page-width);
+  height: var(--page-height);
+  min-height: var(--page-height);
+  background-color: var(--paper-bg);
+  box-shadow: var(--shadow-sheet);
+  border-radius: 3px;
+  padding: var(--page-padding-top) var(--page-padding-right) var(--page-padding-bottom) var(--page-padding-left);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Lined Paper */
+.notebook-sheet.paper-lined {
+  background-image:
+    linear-gradient(to right, transparent 66px, var(--paper-margin) 66px, var(--paper-margin) 68px, transparent 68px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--line-height) - 1px),
+      var(--paper-line) calc(var(--line-height) - 1px),
+      var(--paper-line) var(--line-height)
+    );
+  background-position: 0 0, 0 var(--page-padding-top);
+}
+
+/* Plain Paper */
+.notebook-sheet.paper-plain {
+  background-image: none;
+}
+
+/* Grid Paper */
+.notebook-sheet.paper-grid {
+  background-image:
+    linear-gradient(to right, var(--paper-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--paper-grid) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: var(--page-padding-left) var(--page-padding-top);
+}
+
+.sheet-lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.handwritten-line {
+  height: var(--line-height);
+  line-height: var(--line-height);
+  display: flex;
+  align-items: baseline;
+  white-space: pre;
+}
+
+.handwritten-word {
+  display: inline-block;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.sheet-footer {
+  position: absolute;
+  bottom: 22px;
+  right: 36px;
+  font-size: 12px;
+  color: #8b939e;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}

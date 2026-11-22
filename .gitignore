@@ -1,0 +1,9 @@
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# Local Python cache if you used a local server
+__pycache__/
+*.py[cod]

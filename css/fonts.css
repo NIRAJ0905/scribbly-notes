@@ -1,0 +1,38 @@
+/* Handwriting fonts bundled locally for offline use. */
+
+@font-face {
+  font-family: 'ScribblyStyleOne';
+  src: url('../assets/fonts/style-one/StyleOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'ScribblyStyleTwo';
+  src: url('../assets/fonts/style-two/StyleTwo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'ScribblyStyleThree';
+  src: url('../assets/fonts/style-three/StyleThree-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+/* Style Classes with Offline System Fallbacks */
+.font-style-one {
+  font-family: 'ScribblyStyleOne', 'Segoe Print', 'Bradley Hand', cursive;
+}
+
+.font-style-two {
+  font-family: 'ScribblyStyleTwo', 'Caveat', 'Comic Sans MS', cursive;
+}
+
+.font-style-three {
+  font-family: 'ScribblyStyleThree', 'Chalkboard SE', 'Gabriola', cursive;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scribbly Notes — Handwritten Study Notebook</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/paper.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">✎</span>
+        <div>
+          <h1>Scribbly Notes</h1>
+          <p class="subtitle">Offline Handwritten Study Notebook Generator</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="offline-badge" id="offlineBadge" title="Runs 100% locally in your browser">
+          ● Offline Ready
+        </span>
+        <button type="button" class="btn btn-secondary" id="exportPageBtn">
+          Export Current Page (PNG)
+        </button>
+        <button type="button" class="btn btn-primary" id="exportPdfBtn">
+          Export All Pages (PDF)
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+      <!-- Left Panel: Editor & Customization -->
+      <aside class="controls-panel" aria-label="Note Editor and Styling Controls">
+        <section class="control-group">
+          <div class="section-header">
+            <label for="notesInput" class="control-label">Study Notes</label>
+            <button type="button" class="btn-link" id="loadSampleBtn">Load Sample Notes</button>
+          </div>
+          <textarea
+            id="notesInput"
+            class="notes-textarea"
+            placeholder="Type or paste your study notes here..."
+            spellcheck="true"
+          ></textarea>
+          <div class="editor-meta">
+            <span id="wordCount">0 words</span>
+            <span id="pageCountMeta">1 page</span>
+          </div>
+        </section>
+
+        <!-- Handwriting Style Selector -->
+        <section class="control-group">
+          <span class="control-label">Handwriting Style</span>
+          <div class="style-grid" role="radiogroup" aria-label="Handwriting Style">
+            <button type="button" class="style-card active" data-font="style-one">
+              <span class="style-preview font-style-one">Neat Script</span>
+              <span class="style-name">Style 1 · Clean</span>
+            </button>
+            <button type="button" class="style-card" data-font="style-two">
+              <span class="style-preview font-style-two">Lecture Flow</span>
+              <span class="style-name">Style 2 · Casual</span>
+            </button>
+            <button type="button" class="style-card" data-font="style-three">
+              <span class="style-preview font-style-three">Quick Margin</span>
+              <span class="style-name">Style 3 · Compact</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Ink Color Selector -->
+        <section class="control-group">
+          <span class="control-label">Ink Colour</span>
+          <div class="swatch-row" role="radiogroup" aria-label="Ink Colour">
+            <button type="button" class="ink-swatch active" data-ink="#1b3b82" title="Classic Ballpoint Blue" style="--swatch-color:#1b3b82"></button>
+            <button type="button" class="ink-swatch" data-ink="#1e2229" title="Gel Pen Black" style="--swatch-color:#1e2229"></button>
+            <button type="button" class="ink-swatch" data-ink="#2f4f4f" title="Fountain Slate" style="--swatch-color:#2f4f4f"></button>
+            <button type="button" class="ink-swatch" data-ink="#9e2a2b" title="Revision Crimson" style="--swatch-color:#9e2a2b"></button>
+            <button type="button" class="ink-swatch" data-ink="#1f5c3a" title="Forest Green" style="--swatch-color:#1f5c3a"></button>
+            <button type="button" class="ink-swatch" data-ink="#5b2c6f" title="Plum Violet" style="--swatch-color:#5b2c6f"></button>
+          </div>
+        </section>
+
+        <!-- Paper Style Selector -->
+        <section class="control-group">
+          <span class="control-label">Paper Style</span>
+          <div class="segmented-control" role="radiogroup" aria-label="Paper Style">
+            <button type="button" class="segment-btn active" data-paper="lined">Lined</button>
+            <button type="button" class="segment-btn" data-paper="plain">Plain</button>
+            <button type="button" class="segment-btn" data-paper="grid">Grid</button>
+          </div>
+        </section>
+
+        <!-- Natural Handwriting Variation -->
+        <section class="control-group">
+          <div class="section-header">
+            <label for="variationRange" class="control-label">Natural Hand Variation</label>
+            <span id="variationValue" class="value-pill">Medium (60%)</span>
+          </div>
+          <input
+            type="range"
+            id="variationRange"
+            min="0"
+            max="100"
+            value="60"
+            class="range-slider"
+          />
+          <p class="helper-text">
+            Adds subtle human variation to word tilt, baseline shift, and size while keeping lines readable.
+          </p>
+        </section>
+
+        <footer class="panel-credit">Developed by:- Niraj Mukesh Pingale</footer>
+      </aside>
+
+      <!-- Right Panel: Live Notebook Preview -->
+      <section class="preview-panel" aria-label="Live Notebook Preview">
+        <div class="preview-toolbar">
+          <div class="pagination-controls">
+            <button type="button" class="btn btn-icon" id="prevPageBtn" aria-label="Previous Page">←</button>
+            <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+            <button type="button" class="btn btn-icon" id="nextPageBtn" aria-label="Next Page">→</button>
+          </div>
+          <div class="view-mode">
+            <label class="checkbox-label">
+              <input type="checkbox" id="showAllPagesToggle" />
+              Show all pages
+            </label>
+          </div>
+        </div>
+
+        <div class="preview-stage" id="previewStage">
+          <!-- Notebook sheets injected dynamically by previewRenderer.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
